@@ -109,7 +109,7 @@ def log(img, metadata, metadata_parser: MetadataParser | None = None, output_for
     item += f"<td><a href=\"{only_name}\" target=\"_blank\"><img src='{only_name}' onerror=\"this.closest('.image-container').style.display='none';\" loading='lazy'/></a><div>{only_name}</div></td>"
     item += "<td><table class='metadata'>"
     for label, key, value in metadata:
-        if label == 'Fooocus V2 Expansion' or label == 'Styles' or label == 'Guidance Scale' or label == 'Sharpness' or label == 'ADM Guidance	' or label == 'Refiner Switch' or label == 'CLIP Skip' or label == 'Sampler' or label == 'Scheduler' or label == 'LoRA 1' or label == 'Version':
+        if label == 'Fooocus V2 Expansion' or label == 'Styles' or label == 'Guidance Scale' or label == 'Sharpness' or label == 'ADM Guidance' or label == 'Refiner Switch' or label == 'CLIP Skip' or label == 'Sampler' or label == 'Scheduler' or label == 'LoRA 1' or label == 'Version':
             continue
         value_txt = str(value).replace('\n', ' </br> ')
         item += f"<tr><td class='label'>{label}</td><td class='value'>{value_txt}</td></tr>\n"
