@@ -152,11 +152,11 @@ if isinstance(args_manager.args.preset, str):
 
 shared.gradio_root = gr.Blocks(title=title).queue()
 
-gr.Markdown("# AI Image Generation - Fooocus ")
 
 with shared.gradio_root:
     currentTask = gr.State(worker.AsyncTask(args=[]))
     inpaint_engine_state = gr.State('empty')
+    gr.Markdown("# AI Image Generation")
     with gr.Row():
         with gr.Column(scale=2):
             with gr.Row():
