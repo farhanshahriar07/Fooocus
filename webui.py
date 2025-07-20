@@ -156,7 +156,7 @@ shared.gradio_root = gr.Blocks(title=title).queue()
 with shared.gradio_root:
     currentTask = gr.State(worker.AsyncTask(args=[]))
     inpaint_engine_state = gr.State('empty')
-    gr.Markdown("<h1 style='text-align:center;'>AI Image Generation</h1>")
+    gr.Markdown("<h1'>AI Image Generation</h1>")
     with gr.Row():
         with gr.Column(scale=2):
             with gr.Row():
