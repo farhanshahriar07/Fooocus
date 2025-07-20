@@ -441,7 +441,7 @@ default_max_image_number = get_config_item_or_set_default(
 )
 default_output_format = get_config_item_or_set_default(
     key='default_output_format',
-    default_value='png',
+    default_value='webp',
     validator=lambda x: x in OutputFormat.list(),
     expected_type=str
 )
