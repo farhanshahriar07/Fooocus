@@ -152,6 +152,8 @@ if isinstance(args_manager.args.preset, str):
 
 shared.gradio_root = gr.Blocks(title=title).queue()
 
+gr.Markdown("# AI Image Generation - Fooocus ")
+
 with shared.gradio_root:
     currentTask = gr.State(worker.AsyncTask(args=[]))
     inpaint_engine_state = gr.State('empty')
@@ -651,7 +653,7 @@ with shared.gradio_root:
                                                        show_progress=False).then(
                     lambda: None, _js='()=>{refresh_style_localization();}')
 
-            with gr.Tab(label='Models'):
+            with gr.Tab(label=' '):
                 with gr.Group():
                     with gr.Row():
                         base_model = gr.Dropdown(label='Base Model (SDXL only)', choices=modules.config.model_filenames, value=modules.config.default_base_model_name, show_label=True)
