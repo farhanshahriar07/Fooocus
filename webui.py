@@ -156,7 +156,7 @@ shared.gradio_root = gr.Blocks(title=title).queue()
 with shared.gradio_root:
     currentTask = gr.State(worker.AsyncTask(args=[]))
     inpaint_engine_state = gr.State('empty')
-    gr.Markdown("# AI Image Generation")
+    gr.Markdown("<h1 style='text-align:center;'>AI Image Generation</h1>")
     with gr.Row():
         with gr.Column(scale=2):
             with gr.Row():
@@ -563,7 +563,8 @@ with shared.gradio_root:
                     preset_selection = gr.Dropdown(label='Preset',
                                                    choices=modules.config.available_presets,
                                                    value=args_manager.args.preset if args_manager.args.preset else "initial",
-                                                   interactive=True)
+                                                   interactive=True,
+                                                   visible=False)
 
                 performance_selection = gr.Radio(label='Performance',
                                                  choices=flags.Performance.values(),
