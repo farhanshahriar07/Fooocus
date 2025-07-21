@@ -150,5 +150,3 @@ config.update_files()
 init_cache(config.model_filenames, config.paths_checkpoints, config.lora_filenames, config.paths_loras)
 
 from webui import *
-
-shared.gradio_root.launch(auth=("username", "password"))
