@@ -1125,7 +1125,7 @@ shared.gradio_root.launch(
     server_name=args_manager.args.listen,
     server_name="0.0.0.0",
     server_port=args_manager.args.port,
-    server_port=int(os.environ.get("GRADIO_SERVER_PORT", 7865))
+    server_port=int(os.environ.get("GRADIO_SERVER_PORT", 7865)),
     share=args_manager.args.share,
     auth=check_auth if (args_manager.args.share or args_manager.args.listen) and auth_enabled else None,
     allowed_paths=[modules.config.path_outputs],
