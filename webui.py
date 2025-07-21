@@ -1123,7 +1123,6 @@ def dump_default_english_config():
 shared.gradio_root.launch(
     inbrowser=args_manager.args.in_browser,
     server_name=args_manager.args.listen,
-    server_name="0.0.0.0",
     server_port=args_manager.args.port,
     server_port=int(os.environ.get("GRADIO_SERVER_PORT", 7865)),
     share=args_manager.args.share,
