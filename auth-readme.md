@@ -2,6 +2,13 @@
 
 This document explains how to set up and use the authentication system in Fooocus.
 
+## Features
+
+- Custom login page with a modern, responsive design
+- Session-based authentication (cookies)
+- Support for both light and dark themes
+- Secure password handling with SHA-256 hashing
+
 ## Setup
 
 1. Rename `auth-example.json` to `auth.json` or create a new `auth.json` file in the root directory.

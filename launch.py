@@ -22,6 +22,7 @@ from build_launcher import build_launcher
 from modules.launch_util import is_installed, run, python, run_pip, requirements_met, delete_folder_content
 from modules.model_loader import load_file_from_url
 from modules.auth import auth_enabled, check_auth
+from modules.custom_auth import auth_middleware
 
 REINSTALL_ALL = False
 TRY_INSTALL_XFORMERS = False
@@ -153,12 +154,18 @@ init_cache(config.model_filenames, config.paths_checkpoints, config.lora_filenam
 
 from webui import *
 
+# Create login interface if authentication is enabled
+login_interface = None
+if (args_manager.args.share or args_manager.args.listen) and auth_enabled:
+    login_interface = auth_middleware(shared.gradio_root)
+
+# Launch the app
 shared.gradio_root.launch(
     inbrowser=args_manager.args.in_browser,
     server_name=args_manager.args.listen,
     server_port=args_manager.args.port,
     share=args_manager.args.share,
-    auth=check_auth if (args_manager.args.share or args_manager.args.listen) and auth_enabled else None,
+    auth=None,  # We're using our custom authentication system now
     allowed_paths=[modules.config.path_outputs],
     blocked_paths=[constants.AUTH_FILENAME],
 )
