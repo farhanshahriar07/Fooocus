@@ -156,7 +156,20 @@ shared.gradio_root = gr.Blocks(title=title).queue()
 with shared.gradio_root:
     currentTask = gr.State(worker.AsyncTask(args=[]))
     inpaint_engine_state = gr.State('empty')
-    gr.Markdown("<h1>AI Image Generation</h1>")
+    with gr.Row():
+        gr.Markdown("<h1>AI Image Generation</h1>")
+        with gr.Column(scale=1):
+            logout_button = gr.Button(value="Logout", elem_classes='type_row_half', elem_id='logout_button')
+            
+            def logout_clicked():
+                # Clear auth cookie and redirect to login page
+                return gr.update(), gr.update(), gr.update(), gr.update(), gr.update(), gr.update(), gr.update(), gr.update(), gr.update(), gr.update(), None
+            
+            logout_button.click(
+                logout_clicked,
+                outputs=[currentTask, generate_button, reset_button, load_parameter_button, skip_button, stop_button, progress_html, progress_window, progress_gallery, gallery, shared.gradio_root],
+                _js='() => { document.cookie = "access-token-unsecure=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; window.location.reload(); return []; }'
+            )
     with gr.Row():
         with gr.Column(scale=2):
             with gr.Row():
