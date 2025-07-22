@@ -74,24 +74,6 @@ progress::after {
     text-align: right;
     width: 215px;
 }
-
-#logout_button {
-    background-color: #ff4444 !important;
-    color: white !important;
-    border: none !important;
-    padding: 8px 16px !important;
-    border-radius: 4px !important;
-    cursor: pointer !important;
-    transition: background-color 0.3s !important;
-    height: 34px !important;
-    min-width: 80px !important;
-    margin-left: 8px !important;
-}
-
-#logout_button:hover {
-    background-color: #cc0000 !important;
-}
-
 div:has(> #positive_prompt) {
     border: none;
 }
