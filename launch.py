@@ -1,8 +1,6 @@
 import os
 import ssl
 import sys
-import secrets
-import gradio as gr
 
 print('[System ARGV] ' + str(sys.argv))
 
@@ -153,30 +151,12 @@ init_cache(config.model_filenames, config.paths_checkpoints, config.lora_filenam
 
 from webui import *
 
-def check_auth(username, password):
-    # You can modify these credentials or connect to a database
-    return username == "admin" and password == "123"
-
-# Create custom auth
-auth_message = {"auth_message": ""}
-def custom_auth(username, password):
-    if check_auth(username, password):
-        return True
-    auth_message["auth_message"] = "Invalid username or password"
-    return False
-
-# Load custom template
-with open('custom_login.html', 'r') as f:
-    custom_template = f.read()
-
 shared.gradio_root.launch(
     inbrowser=args_manager.args.in_browser,
     server_name=args_manager.args.listen,
     server_port=args_manager.args.port,
     share=args_manager.args.share,
-    auth=custom_auth,
-    auth_message=lambda: auth_message["auth_message"],
-    custom_template=custom_template,
+    auth=("admin", "123"),  # 👈 Only this
     allowed_paths=[modules.config.path_outputs],
     blocked_paths=[constants.AUTH_FILENAME],
 )
