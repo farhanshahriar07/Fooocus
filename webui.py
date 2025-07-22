@@ -156,20 +156,7 @@ shared.gradio_root = gr.Blocks(title=title).queue()
 with shared.gradio_root:
     currentTask = gr.State(worker.AsyncTask(args=[]))
     inpaint_engine_state = gr.State('empty')
-    with gr.Row():
-        gr.Markdown("<h1>AI Image Generation</h1>")
-        with gr.Column(scale=1):
-            logout_button = gr.Button(value="Logout", elem_classes='type_row_half', elem_id='logout_button')
-            
-            def logout_clicked():
-                # Clear auth cookie and redirect to login page
-                return gr.update(), gr.update(), gr.update(), gr.update(), gr.update(), gr.update(), gr.update(), gr.update(), gr.update(), gr.update(), None
-            
-            logout_button.click(
-                logout_clicked,
-                outputs=[currentTask, generate_button, reset_button, load_parameter_button, skip_button, stop_button, progress_html, progress_window, progress_gallery, gallery, shared.gradio_root],
-                _js='() => { document.cookie = "access-token-unsecure=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; window.location.reload(); return []; }'
-            )
+    gr.Markdown("<h1>AI Image Generation</h1>")
     with gr.Row():
         with gr.Column(scale=2):
             with gr.Row():
@@ -192,7 +179,9 @@ with shared.gradio_root:
                         shared.gradio_root.load(lambda: default_prompt, outputs=prompt)
 
                 with gr.Column(scale=3, min_width=0):
-                    generate_button = gr.Button(label="Generate", value="Generate", elem_classes='type_row', elem_id='generate_button', visible=True)
+                    with gr.Row():
+                        generate_button = gr.Button(label="Generate", value="Generate", elem_classes='type_row', elem_id='generate_button', visible=True)
+                        logout_button = gr.Button(value="Logout", elem_classes='type_row_half', elem_id='logout_button')
                     reset_button = gr.Button(label="Reconnect", value="Reconnect", elem_classes='type_row', elem_id='reset_button', visible=False)
                     load_parameter_button = gr.Button(label="Load Parameters", value="Load Parameters", elem_classes='type_row', elem_id='load_parameter_button', visible=False)
                     skip_button = gr.Button(label="Skip", value="Skip", elem_classes='type_row_half', elem_id='skip_button', visible=False)
@@ -212,8 +201,19 @@ with shared.gradio_root:
                             model_management.interrupt_current_processing()
                         return currentTask
 
+                    def logout_clicked():
+                        # Clear auth cookie and redirect to login page
+                        return gr.update(), gr.update(), gr.update(), gr.update(), gr.update(), gr.update(), gr.update(), gr.update(), gr.update(), gr.update(), None
+
                     stop_button.click(stop_clicked, inputs=currentTask, outputs=currentTask, queue=False, show_progress=False, _js='cancelGenerateForever')
                     skip_button.click(skip_clicked, inputs=currentTask, outputs=currentTask, queue=False, show_progress=False)
+                    logout_button.click(
+                        logout_clicked,
+                        outputs=[currentTask, generate_button, reset_button, load_parameter_button, skip_button, stop_button, progress_html, progress_window, progress_gallery, gallery, shared.gradio_root],
+                        _js='() => { document.cookie = "access-token-unsecure=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; window.location.reload(); return []; }'
+                    )
+    with gr.Row():
+        with gr.Column(scale=1):
             with gr.Row(elem_classes='advanced_check_row'):
                 advanced_checkbox = gr.Checkbox(label='Advanced', value=modules.config.default_advanced_checkbox, container=False, elem_classes='min_check')
                 input_image_checkbox = gr.Checkbox(label='Input Image', value=modules.config.default_image_prompt_checkbox, container=False, elem_classes='min_check', visible=False)
