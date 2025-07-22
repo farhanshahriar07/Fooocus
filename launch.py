@@ -21,6 +21,7 @@ import fooocus_version
 from build_launcher import build_launcher
 from modules.launch_util import is_installed, run, python, run_pip, requirements_met, delete_folder_content
 from modules.model_loader import load_file_from_url
+from modules.auth import auth_enabled, check_auth
 
 REINSTALL_ALL = False
 TRY_INSTALL_XFORMERS = False
@@ -85,6 +86,7 @@ if args.hf_mirror is not None:
     print("Set hf_mirror to:", args.hf_mirror)
 
 from modules import config
+from modules import constants
 from modules.hash_cache import init_cache
 
 os.environ["U2NET_HOME"] = config.path_inpaint
@@ -156,7 +158,7 @@ shared.gradio_root.launch(
     server_name=args_manager.args.listen,
     server_port=args_manager.args.port,
     share=args_manager.args.share,
-    auth=("admin", "123"),  # 👈 Only this
+    auth=check_auth if (args_manager.args.share or args_manager.args.listen) and auth_enabled else None,
     allowed_paths=[modules.config.path_outputs],
     blocked_paths=[constants.AUTH_FILENAME],
 )
